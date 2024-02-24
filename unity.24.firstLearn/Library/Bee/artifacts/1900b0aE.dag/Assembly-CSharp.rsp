@@ -357,11 +357,18 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/First Class/Script/Camara Move.cs"
 "Assets/First Class/Script/Player Move.cs"
+"Assets/FirstClass_Move/Scripts/CameraMoveSample.cs"
+"Assets/FirstClass_Move/Scripts/PlayerMoveSample.cs"
 "Assets/Second Class/Castle Guard/Scripts/AnimatorController.cs"
 "Assets/Second Class/Castle Guard/Scripts/MouseOrbitImproved.cs"
 "Assets/Second Class/Script/EnemyBullet2.cs"
 "Assets/Second Class/Script/EnemyBulletspawner.cs"
 "Assets/Second Class/Script/Player Rotation.cs"
+"Assets/SecondClass/Script/EnemyBulletSample.cs"
+"Assets/SecondClass/Script/EnemyBulletSpawnerSample.cs"
+"Assets/SecondClass/Script/PlayerRotationSample.cs"
+"Assets/ThirdClass/Playercontroller.cs"
+"Assets/ThirdClass/PlayerControllerSample.cs"
 -langversion:9.0
 
 /deterministic

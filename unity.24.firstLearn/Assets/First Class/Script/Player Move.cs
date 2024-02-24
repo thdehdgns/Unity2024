@@ -13,7 +13,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (IsRigidbody)
         {
-            Move();
+            Move(transform);
         }
         else
         {
@@ -25,7 +25,7 @@ public class PlayerMove : MonoBehaviour
     
 
 
-    private void Move()
+    public void Move(Transform target)
     {
         // 1. 플레이어의 이동을 받는다.
         //if (Input.GetKeyDown(KeyCode.W))
@@ -53,7 +53,7 @@ public class PlayerMove : MonoBehaviour
 
         // 3. 플레이어를 이동시킨다.
 
-        this.gameObject.transform.position = gameObject.transform.position + MoveSpeed * dir * Time.deltaTime;
+       target.position = target.position + MoveSpeed * dir * Time.deltaTime;
 
     }
     // rigidbody 컴포넌트를 읽어 올 방법이 없음.

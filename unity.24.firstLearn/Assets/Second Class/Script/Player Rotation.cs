@@ -9,12 +9,17 @@ public class PlayerRotation : MonoBehaviour
 
     public float rotateSpeed = 200f;
 
+    PlayerController playerController;
 
+    private void Start()
+    {
+        playerController = GetComponent<PlayerController>();
+    }
 
-
- 
     void Update()
     {
+        if (playerController.IsplayerDeath) return;
+
         RotatePlayer();
     }
 

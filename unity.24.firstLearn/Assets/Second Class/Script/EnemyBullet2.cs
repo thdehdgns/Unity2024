@@ -17,21 +17,24 @@ public class EnemyBullet : MonoBehaviour
     // (4) 총알의 생명을 다해서 죽음에 해당하는 부분을 구현할겁니다. 총알 삭
 
     // Start is called before the first frame update
+
+
+    
+
     void Start()
     {
         // 플레이어의 위치를 받아오는지 테스트 해본다. 
-        Debug.Log($"현재 플레이어의 위치 : {PlayerTransform}");
 
-        PlayerTransform = GameObject.Find("Player").transform;
+        Initialize();
 
-        Vector3 playerDirection = new Vector3(PlayerTransform.position.x, 0, PlayerTransform.position.z);
-        caulateDirection = (playerDirection - transform.position).normalized;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         BulletMove();
+
     }
 
     Vector3 caulateDirection;
@@ -44,6 +47,28 @@ public class EnemyBullet : MonoBehaviour
         //transform.Translate(bulletSpeed * playerDirection * Time.deltaTime);
     }
 
+    public void Initialize()
+    {
+        //전에 구현한 총알이 플레이어를 계속해서 쫒아가는 문제점
+        //처음 플레이어 위치를 받은 다음 그 방향으로 총알을 발사하는 기능.
+
+        //시작할 때 한번만 플레이어 위치를 저장하고, 그 저장한 위치로 총알을 쏴야 함
+        
+        Debug.Log($"현재 플레이어의 위치 : {PlayerTransform}");
+
+        PlayerTransform = GameObject.Find("Player").transform;
+
+        Vector3 playerDirection = new Vector3(PlayerTransform.position.x, 0, PlayerTransform.position.z);
+        caulateDirection = (playerDirection - transform.position).normalized;
+
+        Destroy(gameObject, 3f);
+    }
+
+
+
+
+
+
     public void Test()
     {
         Debug.Log("총알이 발사되었음");
@@ -55,6 +80,15 @@ public class EnemyBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log($"충돌한 게임 오브젝트의 이름 {collision.gameObject.name}");
+            collision.gameObject.GetComponent<PlayerController>().PlayerDeath();
+            OnDestroy();
         }
     }
+    private void OnDestroy()
+    {
+        Destroy(gameObject);
+    }
+
+
+
 }
