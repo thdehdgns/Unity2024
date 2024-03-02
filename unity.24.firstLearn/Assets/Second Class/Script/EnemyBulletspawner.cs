@@ -22,6 +22,10 @@ public class EnemyBulletspawner : MonoBehaviour
     {
         while (true)
         {
+            if (Gamemanager.Instance.IsPlayerDeath == true)
+            {
+                yield break;
+            }
             GameObject enemyBullet = Instantiate(bullet, bulletTransfrom.position, Quaternion.identity);
             EnemyBulletspawner bulletControl = enemyBullet.GetComponent<EnemyBulletspawner>();
             

@@ -24,6 +24,10 @@ namespace Sample
         {
             while (true)
             {
+                if (Gamemanager.Instance.IsPlayerDeath == true)
+                {
+                    yield break;
+                }
                 GameObject enemyBullet =
                     Instantiate(bullet, bulletTransform.position, Quaternion.identity);
 

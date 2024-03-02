@@ -11,6 +11,8 @@ public class PlayerMove : MonoBehaviour
     public bool IsRigidbody;
     private void Update()
     {
+        if(Gamemanager.Instance.IsPlayerDeath)
+        
         if (IsRigidbody)
         {
             Move(transform);

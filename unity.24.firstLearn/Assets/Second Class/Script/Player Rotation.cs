@@ -18,7 +18,7 @@ public class PlayerRotation : MonoBehaviour
 
     void Update()
     {
-        if (playerController.IsplayerDeath) return;
+        if (Gamemanager.Instance.IsPlayerDeath) return;
 
         RotatePlayer();
     }

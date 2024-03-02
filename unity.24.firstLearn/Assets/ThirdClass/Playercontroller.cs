@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     
     PlayerMove playerMove;
-    public bool IsplayerDeath = false;
+   
     Animator animator;
    
     public enum PlayerState { Idle, Run, Death}
@@ -23,10 +23,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsplayerDeath == true) return;
+        if (Gamemanager.Instance.IsPlayerDeath == true) return;
         SetPlayerState();
         playerMove.Move(transform);
-
+        SetPlayerAnimation();
     }
 
     private void SetPlayerState()
@@ -58,10 +58,12 @@ public class PlayerController : MonoBehaviour
     {
         //if (animator == null) return;
 
-        if (IsplayerDeath == true) return;
+        Gamemanager.Instance.GameOver();
+
+        if (Gamemanager.Instance.IsPlayerDeath == true) return;
 
         animator?.SetTrigger("Death");
-        IsplayerDeath = true;
+        Gamemanager.Instance.IsPlayerDeath = true;
     }
 
     public void PlayerMove()
@@ -71,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerIdle()
     {
-        animator.SetBool("Isrun", false);
+        animator.SetBool("IsRun", false);
     }
 
     private void SetPlayerAnimation()
