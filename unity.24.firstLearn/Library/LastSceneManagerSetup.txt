@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/FourthClass/Loding.unity
+- path: Assets/FifthClass/Scene/CutScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
