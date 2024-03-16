@@ -400,6 +400,8 @@
 "Assets/SecondClass/Script/EnemyBulletSample.cs"
 "Assets/SecondClass/Script/EnemyBulletSpawnerSample.cs"
 "Assets/SecondClass/Script/PlayerRotationSample.cs"
+"Assets/Sixclass/HitCheck.cs"
+"Assets/Sixclass/PlayerAttackContoller.cs"
 "Assets/ThirdClass/Playercontroller.cs"
 "Assets/ThirdClass/PlayerControllerSample.cs"
 -langversion:9.0

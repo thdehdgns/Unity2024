@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,10 +11,26 @@ public class PlayerController : MonoBehaviour
     PlayerMove playerMove;
    
     Animator animator;
-   
-    public enum PlayerState { Idle, Run, Death}
+
+    public enum PlayerState { Idle, Run, Death, Attack01 }
 
     PlayerState playerstate;
+    public BoxCollider HitBox;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("NPC"))
+        {
+            Debug.Log("NPC와 충돌했습니다!");
+            var trigger = other.GetComponent<Texttriger>();
+            trigger.TriggerText();
+
+        }
+        else
+        {
+            Debug.Log("태그가 NPC가 아닙니다.");
+        }
+    }
 
     private void Awake()
     {
@@ -24,9 +41,39 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (Gamemanager.Instance.IsPlayerDeath == true) return;
+
+        
+        
         SetPlayerState();
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartCoroutine(AttckCoroutin());
+        }
         playerMove.Move(transform);
         SetPlayerAnimation();
+    }
+
+
+   // private void SetAttack()
+   // {
+    //    playerstate = PlayerState.Attack01;
+    //    HitBox.enabled = true;
+    //    Invoke("SetAttackOff",0.5f);
+
+    //}
+
+    //private void SetAttackOff()
+    //{
+    //    HitBox.enabled = false;
+    //}
+
+    IEnumerator AttckCoroutin()
+    {
+        playerstate = PlayerState.Attack01;
+        HitBox.enabled = true;
+
+        yield return new WaitForSeconds(0.5f);
+        HitBox.enabled = false;
     }
 
     private void SetPlayerState()
@@ -85,6 +132,10 @@ public class PlayerController : MonoBehaviour
         else if (playerstate == PlayerState.Run)
         {
             PlayerMove();
+        }
+        else if(playerstate == PlayerState.Attack01)
+        {
+            animator.SetTrigger("doAttack");
         }
     }
     //현재 나의 상태를 판별해주는 함수  

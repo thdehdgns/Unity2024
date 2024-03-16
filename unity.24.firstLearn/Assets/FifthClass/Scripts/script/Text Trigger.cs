@@ -6,13 +6,18 @@ public class Texttriger : MonoBehaviour
 {
     public SampleText[] sampletext;
 
+    private SampleText loadText;
     private void Start()
     {
-        TriggerText(sampletext);
+        //TriggerText(sampletext);
     }
 
     public void TriggerText(SampleText[] sampleTexts)
     {
         FindObjectOfType<TextManager>().StartText(sampleTexts);
+    }
+    public void TriggerText()
+    {
+        FindObjectOfType<TextManager>().StartText(sampletext);
     }
 }
