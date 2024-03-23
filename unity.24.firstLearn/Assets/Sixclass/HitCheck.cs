@@ -11,6 +11,10 @@ public class HitCheck : MonoBehaviour
         {
             Debug.Log("몬스터와 충돌함");
 
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+
+            enemy.TakeDamage();
+
         }
     }
 }
