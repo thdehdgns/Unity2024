@@ -16,5 +16,11 @@ public class HitCheck : MonoBehaviour
             enemy.TakeDamage();
 
         }
+        if(other.gameObject.CompareTag("Player"))
+        {
+            PlayerHitcontoller hitContoller = other.gameObject.GetComponent<PlayerHitcontoller>();
+            
+            hitContoller.TakeDamage();
+        }
     }
 }

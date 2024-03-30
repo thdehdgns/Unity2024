@@ -24,6 +24,15 @@ public class Enemy : MonoBehaviour
 
     private bool isDeath;
 
+    [Header("몬스터의 공격 제어 변수")]
+    public GameObject hitCheckBox;
+    public bool IsEnemyAttackEnable;   //공격 범위 안에 들어오면 true 아니면 false
+    public bool IsAttack;            //공격을 진행중일 때 true 끝나면 false
+    public float attackCoolTime;
+    private float attackCheckTime;    //공격 딜레이 
+
+
+
     private readonly string takeDamageAnimationName = "IsHit";
     private readonly string DreatAnimationName = "doDeath";
     private void Awake()
@@ -39,6 +48,7 @@ public class Enemy : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         skinMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        currentHP = maxHp;
     }
 
     private void Update()
@@ -47,15 +57,38 @@ public class Enemy : MonoBehaviour
 
         target = FindAnyObjectByType<PlayerController>().gameObject.transform;
 
-        if (findDistance >= Vector3.Distance(transform.position, target.position))
+        if (findDistance >= Vector3.Distance(transform.position, target.position)&& !IsEnemyAttackEnable)
         {
             Debug.Log(Vector3.Distance(transform.position, target.position));
 
             navMeshAgent.SetDestination(target.position);   //플레이어를 쫒는 기능 
         }
-
-
         //적의 공격 기능 =
+        //탐색한 플레이어를 공격하는 기능
+
+        attackCheckTime += Time.deltaTime;        //attackCheckTime이 쿨타임 보다 커지면 공격하라 
+
+        if (attackRange >= Vector3.Distance(transform.position, target.position) && !IsAttack)
+        {
+            //현재 플레이어가 공격범위 안에 있는지 체크하는 변수 = (true/false) = bool
+            IsEnemyAttackEnable = true;
+            //공격 쿨타임을 계산한 시간 변수 = float
+
+            //공격을 할지말지 계산한다
+            if(attackCheckTime >= attackCoolTime)
+            {
+                hitCheckBox.SetActive(true);
+                IsAttack = true;
+                anim.CrossFade("Attack01", 0.2f);
+                attackCheckTime = 0;
+            }
+ 
+  
+        }
+        else
+        {
+            IsEnemyAttackEnable = false;
+        }
     }
 
 
@@ -101,6 +134,7 @@ public class Enemy : MonoBehaviour
 
     private void OnDeath()
     {
+        GameStarge.Instance.spawnEnemyCount--;
         anim.SetTrigger(DreatAnimationName);
         isDeath = true;
     }
